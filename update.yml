@@ -1,0 +1,17 @@
+---
+  - name: Update
+    hosts: linux
+    become: yes
+    tasks:
+
+    - name: Update Repos
+      apt:
+        update_cache: yes
+
+    - name: Upgrade Packages
+      apt:
+        upgrade: yes
+
+    - name: Removing Unused Packages
+      apt:
+        autoremove: yes

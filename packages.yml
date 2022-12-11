@@ -1,0 +1,23 @@
+---
+  - name: Packages
+    hosts: linux
+    become: yes
+    tasks:
+
+    - name: Update Repos
+      apt:
+        update_cache: yes
+
+    - name: Install Packages
+      apt:
+        pkg:
+        - rsync
+        - s-nail
+        - sshpass
+        - curl
+        - unzip
+        - screen
+        - jq
+        - git
+        - htop
+        - python3

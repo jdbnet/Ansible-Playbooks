@@ -1,0 +1,19 @@
+---
+  - name: Create User and Disable Root Access
+    hosts: linux
+    become: yes
+    tasks:
+    - name: Install Packages
+      apt:
+        update_cache: yes
+        pkg:
+        - sudo
+    - name: Create User
+      ansible.builtin.shell: |       
+        adduser --disabled-password --gecos "" USERNAME
+        echo 'USERNAME:PASSWORD' | chpasswd
+        echo 'USERNAME ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+        mkdir -p /home/USERNAME
+    - name: Disable Root
+      ansible.builtin.shell: |       
+        passwd -l root

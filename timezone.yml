@@ -1,0 +1,14 @@
+---
+  - name: Timezone
+    hosts: linux
+    become: yes
+    tasks:
+    - name: Set Timezone
+      timezone:
+        name: Europe/London
+    - name: Check Time
+      shell: date
+      register: command_output
+
+    - debug:
+        var: command_output.stdout_lines
