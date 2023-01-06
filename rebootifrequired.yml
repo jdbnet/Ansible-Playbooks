@@ -1,0 +1,20 @@
+---
+  - name: Reboot if Required
+    hosts: linux
+    become: yes
+    gather_facts: False
+    tasks:
+
+    - name: Check
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required_file
+
+    - name: Reboot Required
+      debug:
+        msg: "A Reboot is Required"
+      when: reboot_required_file.stat.exists
+
+    - name: Reboot if Required
+      reboot:
+      when: reboot_required_file.stat.exists
